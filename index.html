@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Відправка форми на електронну адресу</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault(); // Перешкоджаємо стандартній відправці форми
+                var name = $('#name').val();
+                var phone = $('#phone').val();
+                var message = $('#message').val();
+
+                // Перевірка заповненості полів імя та телефон
+                if (name === '' || phone === '') {
+                    alert('Будь ласка, заповніть поля імя та телефон.');
+                    return;
+                }
+
+                // Відправлення даних на сервер
+                $.ajax({
+                    type: 'POST',
+                    url: 'send_email.php', // Файл PHP для обробки відправки електронної пошти
+                    data: {
+                        name: name,
+                        phone: phone,
+                        message: message
+                    },
+                    success: function(response) {
+                        alert('Дані відправлені успішно!');
+                        $('form')[0].reset(); // Очищення форми
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Сталася помилка при відправці даних.');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Відправка форми на електронну адресу</h1>
+    <form>
+        <label for="name">Ім'я:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" required>
+
+        <label for="message">Повідомлення:</label>
+        <textarea id="message" name="message"></textarea>
+
+        <button type="submit">Відправити</button>
+    </form>
+</body>
+</html>
