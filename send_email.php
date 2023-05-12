@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Електронна адреса, на яку буде відправлено повідомлення
-    $to_email = "your_email@example.com";
+    $to_email = "vasya.ganec@gmail.com";
 
     // Тема повідомлення
     $subject = "Нова форма зворотного зв'язку";
